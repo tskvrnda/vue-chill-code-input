@@ -1,6 +1,6 @@
 {
   "name": "vue-chill-code-input",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Easy Verification Code Input for your Vue project",
   "keywords": ["vue", "input", "code", "verification", "typescript", "pin"],
   "main": "dist/vue-chill-code-input.ssr.js",
