@@ -13,9 +13,6 @@
 </template>
 
 <script lang="ts">
-
-
-
 import Vue from 'vue';
 
 export default /*#__PURE__*/Vue.extend({
@@ -39,22 +36,22 @@ export default /*#__PURE__*/Vue.extend({
         };
     },
     methods: {
-        onFieldDelete: function (idx) {
-            if (idx > 0) {
-                const input = this.$refs[`field__${idx - 1}`][0];
+        onFieldDelete: function (index) {
+            if (index > 0) {
+                const input = this.$refs[`field__${index - 1}`][0];
                 input?.focus();
             }
         },
-        onFieldInput: function (idx) {
-            const value = this.$refs[`field__${idx}`][0].value;
+        onFieldInput: function (index) {
+            const value = this.$refs[`field__${index}`][0].value;
             if (value.length > 1) {
-                this.$refs[`field__${idx}`][0].value = value[0];
+                this.$refs[`field__${index}`][0].value = value[0];
             }
-            if (idx + 1 > this.fields) {
+            if (index + 1 > this.fields) {
                 return;
             }
             if (value) {
-                this.$refs[`field__${idx + 1}`]?.[0]?.focus();
+                this.$refs[`field__${index + 1}`]?.[0]?.focus();
             }
             this.computeContent();
         },
@@ -67,9 +64,7 @@ export default /*#__PURE__*/Vue.extend({
         },
         paste: function (event) {
             // @ts-ignore
-            const content = (event.clipboardData || window.clipboardData).getData(
-                "text"
-            );
+            const content = (event.clipboardData || window.clipboardData).getData('text');
             this.fillFields(content);
             this.computeContent();
         },
@@ -89,11 +84,9 @@ export default /*#__PURE__*/Vue.extend({
         },
     },
     mounted: function () {
-        console.log(this.$refs);
         this.fillFields(this.value);
         Object.values(this.$refs)?.forEach((input) => {
-            const casted = input[0]
-            casted.addEventListener('paste', this.paste);
+            input[0].addEventListener('paste', this.paste);
         });
     },
 });
@@ -121,8 +114,7 @@ input {
     outline: transparent;
 }
 
-input:focus,
-input:active {
+input:focus, input:active {
     border: 1px solid green;
 }
 </style>
