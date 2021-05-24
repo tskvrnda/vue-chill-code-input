@@ -6,8 +6,8 @@
             :key="index"
             @input.stop="onFieldInput(index)"
             @keydown.backspace="onFieldDelete(index)"
+            @paste="paste"
             :ref="`field__${index}`"
-            :id="index"
         />
     </div>
 </template>
@@ -17,32 +17,36 @@ import Vue from 'vue';
 
 export default /*#__PURE__*/Vue.extend({
     name: 'VueChillCodeInput',
+    model: {
+        prop: 'valueModel',
+        event: 'update:valueModel',
+    },
     props: {
         fields: {
             type: Number,
             required: false,
             default: 4,
         },
-        value: {
+        valueModel: {
             type: String,
             required: false,
             default: '',
         },
     },
-    data: function () {
+    data: function (): object {
         return {
             activeCol: 0,
             content: '',
         };
     },
     methods: {
-        onFieldDelete: function (index) {
+        onFieldDelete: function (index): void {
             if (index > 0) {
                 const input = this.$refs[`field__${index - 1}`][0];
                 input?.focus();
             }
         },
-        onFieldInput: function (index) {
+        onFieldInput: function (index): void {
             const value = this.$refs[`field__${index}`][0].value;
             if (value.length > 1) {
                 this.$refs[`field__${index}`][0].value = value[0];
@@ -55,20 +59,20 @@ export default /*#__PURE__*/Vue.extend({
             }
             this.computeContent();
         },
-        computeContent: function () {
+        computeContent: function (): void {
             this.content = Object.values(this.$refs)
                 .map((i) => i[0].value)
                 .join('')
                 .trim();
-            this.$emit('input', this.content);
+            this.$emit('update:valueModel', this.content);
         },
-        paste: function (event) {
+        paste: function (event: Event): void {
             // @ts-ignore
             const content = (event.clipboardData || window.clipboardData).getData('text');
             this.fillFields(content);
             this.computeContent();
         },
-        fillFields: function (content: string) {
+        fillFields: function (content: string): void {
             if (!content?.length) {
                 return;
             }
@@ -83,11 +87,8 @@ export default /*#__PURE__*/Vue.extend({
             }
         },
     },
-    mounted: function () {
+    mounted: function (): void {
         this.fillFields(this.value);
-        Object.values(this.$refs)?.forEach((input) => {
-            input[0].addEventListener('paste', this.paste);
-        });
     },
 });
 </script>

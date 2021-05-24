@@ -7,11 +7,17 @@ export default Vue.extend({
     components: {
         VueChillCodeInput
     },
+    data: function (): object {
+        return {
+            model: '',
+        };
+    },
 });
 </script>
 
 <template>
     <div id="app">
-        <VueChillCodeInput/>
+        <VueChillCodeInput v-model="model"/>
+        {{ model }}
     </div>
 </template>
