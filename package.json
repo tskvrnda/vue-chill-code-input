@@ -2,7 +2,7 @@
     "name": "vue-chill-code-input",
     "version": "0.0.4",
     "description": "Easy Verification Code Input for your Vue project",
-    "author": "Tibor Skvrnda <tibor@skvrnda.sk>",
+    "author": "Tibor Skvrnda <tibor@skvrnda.sk> (https://skvrnda.sk/)",
     "keywords": [
         "vue",
         "input",
@@ -11,6 +11,15 @@
         "typescript",
         "pin"
     ],
+    "homepage": "https://github.com/tskvrnda/vue-chill-code-input",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tskvrnda/vue-chill-code-input"
+    },
+    "bugs": {
+        "url": "https://github.com/tskvrnda/vue-chill-code-input/issues"
+    },
+    "license": "MIT",
     "main": "dist/vue-chill-code-input.ssr.js",
     "browser": "dist/vue-chill-code-input.esm.js",
     "module": "dist/vue-chill-code-input.esm.js",
