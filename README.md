@@ -42,6 +42,7 @@ import VueChillCodeInput from 'vue-chill-code-input';
 |--------|--------|
 | focus | focuses on input (on the first column) |
 | blur | blurs input |
+| clear | clear input |
 
 ## Warning
 - early alpha version under heavy development
