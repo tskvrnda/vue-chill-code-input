@@ -1,5 +1,5 @@
 # Vue Chill Code Input
-**Easy Verification Code Input for your Vue project**
+**Easy Verification Code Input for your Vue projects**
 
 ## Why tho
 - user friendly UI
@@ -31,7 +31,9 @@ import VueChillCodeInput from 'vue-chill-code-input';
 | fields | Number | false    | 4       |
 
 ### Events
-~~WIP~~
+| name   | when   | data | 
+|--------|--------|----------|
+| done | on fields filled | input value |
 
 ## Warning
 - early alpha version under heavy development

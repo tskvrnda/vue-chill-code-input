@@ -2,10 +2,11 @@
     <div class="holder">
         <input
             type="text"
-            v-for="(i, index) in fields"
+            v-for="index in Array.from(Array(fields).keys())"
             :key="index"
             @input.stop="onFieldInput(index)"
-            @keydown.backspace="onFieldDelete(index)"
+            @keydown.backspace="onFieldBackspace($event, index)"
+            @keydown.delete="onFieldDelete(index)"
             @paste="paste"
             :ref="`field__${index}`"
         />
@@ -35,29 +36,40 @@ export default /*#__PURE__*/Vue.extend({
     },
     data: function (): object {
         return {
-            activeCol: 0,
             content: '',
         };
     },
     methods: {
-        onFieldDelete: function (index): void {
+        onFieldBackspace: function (event: Event, index: number): void {
+            this.$refs[`field__${index}`][0].value = '';
+            event.preventDefault();
+
             if (index > 0) {
                 const input = this.$refs[`field__${index - 1}`][0];
                 input?.focus();
             }
         },
-        onFieldInput: function (index): void {
+        onFieldDelete: function (index: number): void {
+            console.log(index);
+        },
+        onFieldInput: function (index: number): void {
             const value = this.$refs[`field__${index}`][0].value;
             if (value.length > 1) {
-                this.$refs[`field__${index}`][0].value = value[0];
+                this.$refs[`field__${index}`][0].value = value[1];
             }
             if (index + 1 > this.fields) {
                 return;
             }
-            if (value) {
-                this.$refs[`field__${index + 1}`]?.[0]?.focus();
-            }
             this.computeContent();
+            if (value) {
+                const nextInput = this.$refs[`field__${index + 1}`]?.[0];
+                if (nextInput) {
+                    nextInput.focus();
+                } else {
+                    this.$refs[`field__${index}`][0].blur();
+                    this.$emit('done', this.content);
+                }
+            }
         },
         computeContent: function (): void {
             this.content = Object.values(this.$refs)

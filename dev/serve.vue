@@ -12,12 +12,17 @@ export default Vue.extend({
             model: '',
         };
     },
+    methods: {
+        onDone: function (payload): void {
+            console.log(payload);
+        },
+    },
 });
 </script>
 
 <template>
     <div id="app">
-        <VueChillCodeInput v-model="model"/>
+        <VueChillCodeInput v-model="model" @done="onDone"/>
         {{ model }}
     </div>
 </template>

@@ -1,7 +1,7 @@
 {
     "name": "vue-chill-code-input",
-    "version": "0.0.5",
-    "description": "Easy Verification Code Input for your Vue project",
+    "version": "0.0.7",
+    "description": "Easy Verification Code Input for your Vue projects",
     "author": "Tibor Skvrnda <tibor@skvrnda.sk> (https://skvrnda.sk/)",
     "keywords": [
         "vue",
