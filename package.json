@@ -1,6 +1,6 @@
 {
     "name": "vue-chill-code-input",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "Easy Verification Code Input for your Vue projects",
     "author": "Tibor Skvrnda <tibor@skvrnda.sk> (https://skvrnda.sk/)",
     "keywords": [
@@ -9,9 +9,10 @@
         "code",
         "verification",
         "typescript",
+        "pincode",
         "pin"
     ],
-    "homepage": "https://github.com/tskvrnda/vue-chill-code-input",
+    "homepage": "https://github.com/tskvrnda/vue-chill-code-input#readme",
     "repository": {
         "type": "git",
         "url": "https://github.com/tskvrnda/vue-chill-code-input"
@@ -36,7 +37,8 @@
         "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
         "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
         "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
-        "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
+        "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
+        "prepublish": "npm run build"
     },
     "dependencies": {},
     "devDependencies": {

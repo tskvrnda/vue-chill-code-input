@@ -4,10 +4,12 @@
             type="text"
             v-for="index in Array.from(Array(fields).keys())"
             :key="index"
-            @input.stop="onFieldInput(index)"
-            @keydown.backspace="onFieldBackspace($event, index)"
-            @keydown.delete="onFieldDelete(index)"
+            @input.stop="onInput(index)"
+            @keydown.backspace="onBackspace($event, index)"
+            @keydown.delete="onDelete(index)"
             @paste="paste"
+            @blur.prevent="onBlur"
+            @focus.prevent="setActiveIndex(index)"
             :ref="`field__${index}`"
         />
     </div>
@@ -33,26 +35,61 @@ export default /*#__PURE__*/Vue.extend({
             required: false,
             default: '',
         },
+        autoFocus: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
     data: function (): object {
         return {
+            activeColumnIndex: null,
             content: '',
+            dontEmit: false,
         };
     },
+    computed: {
+        currentColumn: function (): Element | null {
+            if (this.activeColumnIndex === null) {
+                return null;
+            }
+            return this.$refs[`field__${this.activeColumnIndex}`][0];
+        },
+    },
     methods: {
-        onFieldBackspace: function (event: Event, index: number): void {
+        blur: function (): void {
+            this.currentColumn?.blur();
+        },
+        focus: function (): void {
+            this.setActiveIndex(0);
+            this.currentColumn.focus();
+        },
+        setActiveIndex: function (index: number): void {
+            this.activeColumnIndex = index;
+        },
+        getColumn: function (index: number): Element | null {
+            console.log(index);
+            return null;
+        },
+        onBackspace: function (event: Event, index: number): void {
+            this.setActiveIndex(index);
             this.$refs[`field__${index}`][0].value = '';
             event.preventDefault();
 
             if (index > 0) {
                 const input = this.$refs[`field__${index - 1}`][0];
-                input?.focus();
+                if (!this.dontFocus) {
+                    input?.focus();
+                }
             }
         },
-        onFieldDelete: function (index: number): void {
+        onDelete: function (index: number): void {
+            this.setActiveIndex(index);
             console.log(index);
         },
-        onFieldInput: function (index: number): void {
+        onInput: function (index: number): void {
+            this.dontEmit = true;
+            this.setActiveIndex(index);
             const value = this.$refs[`field__${index}`][0].value;
             if (value.length > 1) {
                 this.$refs[`field__${index}`][0].value = value[1];
@@ -70,6 +107,15 @@ export default /*#__PURE__*/Vue.extend({
                     this.$emit('done', this.content);
                 }
             }
+            this.dontEmit = false;
+            console.log()
+        },
+        onBlur: function (): void {
+            if (this.dontEmit) {
+                return;
+            }
+            this.setActiveIndex(null);
+            this.$emit('blur')
         },
         computeContent: function (): void {
             this.content = Object.values(this.$refs)
@@ -101,16 +147,21 @@ export default /*#__PURE__*/Vue.extend({
     },
     mounted: function (): void {
         this.fillFields(this.value);
+
+        if (this.autoFocus) {
+            this.focus();
+        }
     },
 });
 </script>
 
 <style scoped>
 .holder {
-    display: flex;
+    display: inline-flex;
     justify-content: center;
-    padding: 2em;
+    padding: 1em;
     background: lightgrey;
+    border-radius: 4px;
 }
 
 input {

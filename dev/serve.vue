@@ -16,13 +16,23 @@ export default Vue.extend({
         onDone: function (payload): void {
             console.log(payload);
         },
+        onBlur: function (): void {
+            console.log('blurred');
+        },
+    },
+    watch: {
+        model: function (val): void {
+            if (val === 'te') {
+                this.$refs.test.blur();
+            }
+        },
     },
 });
 </script>
 
 <template>
     <div id="app">
-        <VueChillCodeInput v-model="model" @done="onDone"/>
+        <VueChillCodeInput v-model="model" @done="onDone" @blur="onBlur" ref="test" auto-focus/>
         {{ model }}
     </div>
 </template>

@@ -29,11 +29,19 @@ import VueChillCodeInput from 'vue-chill-code-input';
 | name   | type   | required | default | 
 |--------|--------|----------|---------|
 | fields | Number | false    | 4       |
+| autoFocus | Boolean | false    | false       |
 
 ### Events
 | name   | when   | data | 
 |--------|--------|----------|
 | done | on fields filled | input value |
+| blur | when blurred | - |
+
+## Methods
+| name   | desc    | 
+|--------|--------|
+| focus | focuses on input (on the first column) |
+| blur | blurs input |
 
 ## Warning
 - early alpha version under heavy development
