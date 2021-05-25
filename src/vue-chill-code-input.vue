@@ -64,12 +64,17 @@ export default /*#__PURE__*/Vue.extend({
             this.setActiveIndex(0);
             this.currentColumn.focus();
         },
+        clear: function (): void {
+            for (let i = 0; i < this.fields; i++) {
+                this.getColumn(i).value = '';
+            }
+            this.computeContent();
+        },
         setActiveIndex: function (index: number): void {
             this.activeColumnIndex = index;
         },
         getColumn: function (index: number): Element | null {
-            console.log(index);
-            return null;
+            return this.$refs[`field__${index}`]?.[0] || null;
         },
         onBackspace: function (event: Event, index: number): void {
             this.setActiveIndex(index);

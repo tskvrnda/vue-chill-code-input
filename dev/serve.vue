@@ -1,3 +1,11 @@
+<template>
+    <div id="app">
+        <VueChillCodeInput v-model="model" @done="onDone" @blur="onBlur" ref="test" auto-focus/>
+        {{ model }}
+        <button @click="$refs.test.clear()">Clear</button>
+    </div>
+</template>
+
 <script lang="ts">
 import Vue from 'vue';
 import VueChillCodeInput from '@/vue-chill-code-input.vue';
@@ -29,10 +37,3 @@ export default Vue.extend({
     },
 });
 </script>
-
-<template>
-    <div id="app">
-        <VueChillCodeInput v-model="model" @done="onDone" @blur="onBlur" ref="test" auto-focus/>
-        {{ model }}
-    </div>
-</template>
