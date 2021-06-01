@@ -28,7 +28,7 @@ import VueChillCodeInput from 'vue-chill-code-input';
 ### Props
 | name   | type   | required | default | 
 |--------|--------|----------|---------|
-| fields | Number | false    | 4       |
+| length | Number | false    | 4       |
 | autoFocus | Boolean | false    | false       |
 
 ### Events

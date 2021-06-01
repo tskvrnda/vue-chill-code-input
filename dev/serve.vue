@@ -22,7 +22,7 @@ export default Vue.extend({
     },
     methods: {
         onDone: function (payload): void {
-            console.log(payload);
+            console.log('Done:', payload);
         },
         onBlur: function (): void {
             console.log('blurred');

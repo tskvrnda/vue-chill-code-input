@@ -2,7 +2,7 @@
     <div class="holder">
         <input
             type="text"
-            v-for="index in Array.from(Array(fields).keys())"
+            v-for="index in Array.from(Array(length).keys())"
             :key="index"
             @input.stop="onInput(index)"
             @keydown.backspace="onBackspace($event, index)"
@@ -25,7 +25,7 @@ export default /*#__PURE__*/Vue.extend({
         event: 'update:valueModel',
     },
     props: {
-        fields: {
+        length: {
             type: Number,
             required: false,
             default: 4,
@@ -65,7 +65,7 @@ export default /*#__PURE__*/Vue.extend({
             this.currentColumn.focus();
         },
         clear: function (): void {
-            for (let i = 0; i < this.fields; i++) {
+            for (let i = 0; i < this.length; i++) {
                 this.getColumn(i).value = '';
             }
             this.computeContent();
@@ -99,7 +99,7 @@ export default /*#__PURE__*/Vue.extend({
             if (value.length > 1) {
                 this.$refs[`field__${index}`][0].value = value[1];
             }
-            if (index + 1 > this.fields) {
+            if (index + 1 > this.length) {
                 return;
             }
             this.computeContent();
@@ -140,7 +140,7 @@ export default /*#__PURE__*/Vue.extend({
                 return;
             }
             const textLength = content.length;
-            for (let i = 0; i < this.fields; i++) {
+            for (let i = 0; i < this.length; i++) {
                 this.$refs[`field__${i}`][0].value = content[i];
                 if (i + 1 === textLength) {
                     break;
