@@ -7,7 +7,7 @@
             @input.stop="onInput(index)"
             @keydown.backspace="onBackspace($event, index)"
             @keydown.delete="onDelete(index)"
-            @paste="paste"
+            @paste="onPaste"
             @blur.prevent="onBlur"
             @focus.prevent="setActiveIndex(index)"
             :ref="`field__${index}`"
@@ -135,7 +135,7 @@ export default /*#__PURE__*/Vue.extend({
                 .trim();
             this.$emit('update:valueModel', this.content);
         },
-        paste: function (event: Event): void {
+        onPaste: function (event: Event): void {
             // @ts-ignore
             const content = (event.clipboardData || window.clipboardData).getData('text');
             this.fillFields(content);
