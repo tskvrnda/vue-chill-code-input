@@ -1,7 +1,7 @@
 <template>
     <div class="holder">
         <input
-            type="text"
+            :type="type"
             v-for="index in Array.from(Array(length).keys())"
             :key="index"
             @input.stop="onInput(index)"
@@ -39,6 +39,12 @@ export default /*#__PURE__*/Vue.extend({
             type: Boolean,
             required: false,
             default: false,
+        },
+        type: {
+            type: String,
+            required: false,
+            default: 'text',
+            validator: value => ['text', 'number'].includes(value),
         },
     },
     data: function (): object {
