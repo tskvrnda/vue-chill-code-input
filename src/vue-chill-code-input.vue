@@ -1,7 +1,7 @@
 <template>
     <div class="holder">
         <input
-            :type="type"
+            :type="getType"
             v-for="index in Array.from(Array(length).keys())"
             :key="index"
             @input.stop="onInput(index)"
@@ -46,6 +46,11 @@ export default /*#__PURE__*/Vue.extend({
             default: 'text',
             validator: value => ['text', 'number'].includes(value),
         },
+        password: {
+            type: Boolean,
+            required: false,
+            default: false,
+        }
     },
     data: function (): object {
         return {
@@ -60,6 +65,9 @@ export default /*#__PURE__*/Vue.extend({
                 return null;
             }
             return this.$refs[`field__${this.activeColumnIndex}`][0];
+        },
+        getType: function (): string {
+            return this.password ? 'password' : this.type;
         },
     },
     methods: {
