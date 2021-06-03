@@ -40,6 +40,11 @@ export default /*#__PURE__*/Vue.extend({
             required: false,
             default: false,
         },
+        autoBlur: {
+            type: Boolean,
+            required: false,
+            default: true,
+        },
         type: {
             type: String,
             required: false,
@@ -122,7 +127,9 @@ export default /*#__PURE__*/Vue.extend({
                 if (nextInput) {
                     nextInput.focus();
                 } else {
-                    this.$refs[`field__${index}`][0].blur();
+                    if(this.autoBlur) {
+                        this.$refs[`field__${index}`][0].blur();
+                    }
                     this.$emit('done', this.content);
                 }
             }

@@ -31,6 +31,7 @@ import VueChillCodeInput from 'vue-chill-code-input';
 | length | Number | false    | 4       |  |
 | type | String | false    | text | text, number |
 | autoFocus | Boolean | false    | false  |     |
+| autoBlur | Boolean | false    | true  |     |
 
 ### Events
 | name   | when   | data | 
