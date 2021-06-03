@@ -3,11 +3,11 @@
 
 ## Why tho
 - user friendly UI
+- support for **copy & paste**
+- **v-model**
+- **typescript** support
 - customizable length
-- support for _copy & paste_
-- _v-model_ API
-- chill vibes
-- written in Typescript
+- basically behaves like a standard input
 
 Currently working with Vue2 projects only. Vue3 support coming soon.
 
@@ -47,7 +47,7 @@ import VueChillCodeInput from 'vue-chill-code-input';
 | clear | clear input |
 
 ## Warning
-- early alpha version under heavy development
+- early beta version under heavy development
 - any part of API can be changed
 
 ## Bugs and Features
