@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <VueChillCodeInput v-model="model" @done="onDone" @blur="onBlur" ref="test" auto-focus type="number" password :auto-blur="false"/>
+        <VueChillCodeInput v-model="model" @done="onDone" @blur="onBlur" ref="test" auto-focus :auto-blur="false"/>
         {{ model }}
         <button @click="$refs.test.clear()">Clear</button>
     </div>

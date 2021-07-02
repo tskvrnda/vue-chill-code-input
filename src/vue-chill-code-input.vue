@@ -7,7 +7,7 @@
             @input.stop="onInput(index)"
             @keydown.backspace="onBackspace($event, index)"
             @keydown.delete="onDelete(index)"
-            @paste="onPaste"
+            @paste.prevent="onPaste"
             @blur.prevent="onBlur"
             @focus.prevent="setActiveIndex(index)"
             :ref="`field__${index}`"
@@ -55,7 +55,7 @@ export default /*#__PURE__*/Vue.extend({
             type: Boolean,
             required: false,
             default: false,
-        }
+        },
     },
     data: function (): object {
         return {
@@ -101,47 +101,48 @@ export default /*#__PURE__*/Vue.extend({
             event.preventDefault();
 
             if (index > 0) {
-                const input = this.$refs[`field__${index - 1}`][0];
-                if (!this.dontFocus) {
-                    input?.focus();
-                }
+                const input = this.getColumn(index - 1);
+                this.dontEmit = true;
+                input?.focus();
+                this.dontEmit = false;
             }
         },
         onDelete: function (index: number): void {
             this.setActiveIndex(index);
-            console.log(index);
         },
         onInput: function (index: number): void {
             this.dontEmit = true;
             this.setActiveIndex(index);
-            const value = this.$refs[`field__${index}`][0].value;
+
+            const column = this.getColumn(index);
+            const value = column.value;
+
             if (value.length > 1) {
-                this.$refs[`field__${index}`][0].value = value[1];
+                column.value = value[1];
             }
-            if (index + 1 > this.length) {
-                return;
-            }
+
             this.computeContent();
-            if (value) {
-                const nextInput = this.$refs[`field__${index + 1}`]?.[0];
+
+            if (value.trim()) {
+                const nextInput = this.getColumn(index + 1);
                 if (nextInput) {
                     nextInput.focus();
                 } else {
-                    if(this.autoBlur) {
+                    if (this.autoBlur) {
                         this.$refs[`field__${index}`][0].blur();
                     }
                     this.$emit('done', this.content);
                 }
             }
+
             this.dontEmit = false;
-            console.log()
         },
         onBlur: function (): void {
             if (this.dontEmit) {
                 return;
             }
             this.setActiveIndex(null);
-            this.$emit('blur')
+            this.$emit('blur');
         },
         computeContent: function (): void {
             this.content = Object.values(this.$refs)
@@ -152,23 +153,34 @@ export default /*#__PURE__*/Vue.extend({
         },
         onPaste: function (event: Event): void {
             // @ts-ignore
-            const content = (event.clipboardData || window.clipboardData).getData('text');
+            const content = (event.clipboardData || window.clipboardData).getData('text').trim();
             this.fillFields(content);
-            this.computeContent();
         },
         fillFields: function (content: string): void {
             if (!content?.length) {
                 return;
             }
-            const textLength = content.length;
+
+            this.dontEmit = true;
+
             for (let i = 0; i < this.length; i++) {
-                this.$refs[`field__${i}`][0].value = content[i];
-                if (i + 1 === textLength) {
+                this.getColumn(i).value = content[i];
+                this.computeContent();
+
+                const nextIndex = i + 1;
+                if (nextIndex)
+                if (nextIndex === this.length) {
+                    if (this.autoBlur) {
+                        this.getColumn(i).blur();
+                        this.$emit('done', this.content);
+                    }
                     break;
                 } else {
-                    this.$refs[`field__${i + 1}`]?.[0]?.focus();
+                    this.getColumn(nextIndex)?.focus();
                 }
             }
+
+            this.dontEmit = false;
         },
     },
     mounted: function (): void {
