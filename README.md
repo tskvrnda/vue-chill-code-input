@@ -20,7 +20,7 @@ npm i vue-chill-code-input
 ```vue
 import VueChillCodeInput from 'vue-chill-code-input';
 
-<VueChillCodeInput :fields="6" v-model="myValue"/>
+<VueChillCodeInput :length="6" v-model="myValue"/>
 ```
 
 ## API
