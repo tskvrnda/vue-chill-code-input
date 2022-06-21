@@ -49,7 +49,7 @@ export default /*#__PURE__*/Vue.extend({
             type: String,
             required: false,
             default: 'text',
-            validator: value => ['text', 'number'].includes(value),
+            validator: value => ['text', 'number', 'tel'].includes(value),
         },
         password: {
             type: Boolean,
