@@ -26,12 +26,13 @@ import VueChillCodeInput from 'vue-chill-code-input';
 ## API
 
 ### Props
-| name   | type   | required | default | options |
-|--------|--------|----------|---------| --- |
-| length | Number | false    | 4       |  |
-| type | String | false    | text | text, number |
-| autoFocus | Boolean | false    | false  |     |
-| autoBlur | Boolean | false    | true  |     |
+| name      | type   | required | default | options           |
+|-----------|--------|----------|---------|-------------------|
+| length    | Number | false    | 4       |                   |
+| type      | String | false    | text    | text, number, tel |
+| password  | Boolean | false    | false   |                   |
+| autoFocus | Boolean | false    | false   |                   |
+| autoBlur  | Boolean | false    | true    |                   |
 
 ### Events
 | name   | when   | data | 
