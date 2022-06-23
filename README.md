@@ -1,6 +1,10 @@
 # Vue Chill Code Input
 **Easy Verification Code Input for your Vue projects**
 
+[![npm](https://img.shields.io/npm/v/vue-chill-code-input)](https://www.npmjs.com/package/vue-chill-code-input)
+[![build](https://github.com/tskvrnda/vue-chill-code-input/actions/workflows/build.yml/badge.svg)](https://github.com/tskvrnda/vue-chill-code-input/actions/workflows/npm-publish.yml)
+
+
 ## Why tho
 - user friendly UI
 - support for **copy & paste**
