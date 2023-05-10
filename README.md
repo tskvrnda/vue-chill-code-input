@@ -13,7 +13,7 @@
 - customizable length
 - basically behaves like a standard input
 
-Currently working with Vue2 projects only. Vue3 support coming soon.
+Working with Vue2 projects only. Vue3 support not comming.
 
 ## Install
 ```bash
@@ -50,10 +50,6 @@ import VueChillCodeInput from 'vue-chill-code-input';
 | focus | focuses on input (on the first column) |
 | blur | blurs input |
 | clear | clear input |
-
-## Warning
-- early beta version under heavy development
-- any part of API can be changed
 
 ## Bugs and Features
 [Check here](https://github.com/tskvrnda/vue-chill-code-input/issues)
